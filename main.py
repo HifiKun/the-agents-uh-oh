@@ -28,7 +28,9 @@ def main() -> int:
     if not text or len(text) > 99 or any(ch.isspace() for ch in text):
         print("error: entry must be one word of 1-99 characters", file=sys.stderr)
         return 1
-    os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
+    out_dir = os.path.dirname(OUTPUT_PATH)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         f.write(text)
     # Round-trip check: what the scorer will read must be exactly the word.
